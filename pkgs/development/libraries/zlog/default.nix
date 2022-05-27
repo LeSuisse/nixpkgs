@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub }:
+{ lib, stdenv, fetchFromGitHub, fetchpatch }:
 
 stdenv.mkDerivation rec {
   version = "1.2.15";
@@ -10,6 +10,14 @@ stdenv.mkDerivation rec {
     rev = version;
     sha256 = "10hzifgpml7jm43y6v8c8q0cr9ziyx9qxznafxyw6glhnlqnb7pb";
   };
+
+  patches = [
+    (fetchpatch {
+      name = "CVE-2021-43521.patch";
+      url = "https://github.com/HardySimpson/zlog/pull/209/commits/70fb762152e56b65e05e09f35a8ded1f01c017c7.patch";
+      sha256 = "sha256-igHXUHN2Ke8Gb5AeDrDwG2aUNRpispgqVlGuASute+8=";
+    })
+  ];
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];
 
