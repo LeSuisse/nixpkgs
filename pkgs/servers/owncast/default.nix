@@ -1,4 +1,4 @@
-{ lib, buildGoModule, fetchFromGitHub, nixosTests, bash, which, ffmpeg, makeWrapper, coreutils, ... }:
+{ lib, buildGoModule, fetchFromGitHub, fetchpatch, nixosTests, bash, which, ffmpeg, makeWrapper, coreutils, ... }:
 
 buildGoModule rec {
   pname = "owncast";
@@ -12,6 +12,14 @@ buildGoModule rec {
   };
 
   vendorSha256 = "sha256-sQRNf+eT9JUbYne/3E9LoY0K+c7MlxtIbGmTa3VkHvI=";
+
+  patches = [
+    (fetchpatch {
+      name = "CVE-2022-3751.patch";
+      url = "https://github.com/owncast/owncast/commit/23b6e5868d5501726c27a3fabbecf49000968591.patch";
+      sha256 = "sha256-OKa724B5Pe3JfpGDb7utvGf8HbVYApvoR602dhm4/1o=";
+    })
+  ];
 
   propagatedBuildInputs = [ ffmpeg ];
 
