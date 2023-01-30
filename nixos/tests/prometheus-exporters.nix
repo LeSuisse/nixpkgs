@@ -1060,6 +1060,22 @@ let
       '';
     };
 
+    shelly = {
+      exporterConfig = {
+        enable = true;
+        settings.metrics-file = "${pkgs.writeText "test.json" ''{}''}";
+      };
+      exporterTest = ''
+        wait_for_unit("prometheus-shelly-exporter.service")
+        wait_for_open_port(9784)
+        wait_until_succeeds(
+            "curl -sSf 'localhost:9784/probe?name=success' | grep -q '{}'".format(
+                'script_success{script="success"} 1'
+            )
+        )
+      '';
+    };
+
     script = {
       exporterConfig = {
         enable = true;
