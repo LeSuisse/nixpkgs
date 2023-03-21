@@ -22,6 +22,8 @@ PKG_PREFERENCES = {
     "google-api-python-client": "google-api-python-client",
     "psycopg2-binary": "psycopg2",
     "requests_toolbelt": "requests-toolbelt",
+    "elasticsearch-dsl": "elasticsearch-dsl",
+    "protobuf": "protobuf",
 }
 
 # Requirements missing from the airflow provider metadata

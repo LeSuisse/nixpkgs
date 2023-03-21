@@ -77,7 +77,7 @@
 , enabledProviders ? []
 }:
 let
-  version = "2.5.1";
+  version = "2.5.2";
 
   airflow-src = fetchFromGitHub rec {
     owner = "apache";
@@ -86,7 +86,7 @@ let
     # Download using the git protocol rather than using tarballs, because the
     # GitHub archive tarballs don't appear to include tests
     forceFetchGit = true;
-    hash = "sha256-BuJfE6SONTNonUvacOAIdZe0QicdBtx7k186TJZpQOs=";
+    hash = "sha256-S5fp8DRWNY44lBV0KrsMVzBw877C92ZPZbILXSQgTbQ=";
   };
 
   # airflow bundles a web interface, which is built using webpack by an undocumented shell script in airflow's source tree.
@@ -281,9 +281,6 @@ buildPythonPackage rec {
     cd ./pkgs/development/python-modules/apache-airflow
     curl -O https://raw.githubusercontent.com/apache/airflow/$new_version/airflow/www/yarn.lock
     curl -O https://raw.githubusercontent.com/apache/airflow/$new_version/airflow/www/package.json
-    # Revert this commit which seems to break with our version of yarn
-    # https://github.com/apache/airflow/commit/b9e133e40c2848b0d555051a99bf8d2816fd28a7
-    patch -p3 < 0001-Revert-fix-yarn-warning-from-d3-color-27139.patch
     yarn2nix > yarn.nix
 
     # update provider dependencies
