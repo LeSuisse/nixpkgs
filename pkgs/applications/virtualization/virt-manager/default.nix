@@ -28,6 +28,11 @@ python3.pkgs.buildPythonApplication rec {
       url = "https://github.com/virt-manager/virt-manager/commit/83fcc5b2e8f2cede84564387756fe8971de72188.patch";
       hash = "sha256-yEk+md5EkwYpP27u3E+oTJ8thgtH2Uy1x3JIWPBhqeE=";
     })
+    # fix test with libvirt 10.1.0
+    (fetchpatch {
+      url = "https://github.com/virt-manager/virt-manager/commit/8b6db203f726965529567459b302aab1c68c70eb.patch";
+      hash = "sha256-FghrSyP4NaTkJhvyqlc2uDNWKaeiylKnaiqkl5Ax6yE=";
+    })
   ];
 
   nativeBuildInputs = [
