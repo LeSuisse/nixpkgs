@@ -1,6 +1,6 @@
-import ./make-test-python.nix ({ pkgs, ... }: {
+import ./make-test-python.nix ({ pkgs, lib, ... }: {
   name = "limesurvey";
-  meta.maintainers = [ pkgs.lib.maintainers.aanderse ];
+  meta.maintainers = [ lib.maintainers.aanderse ];
 
   nodes.machine = { ... }: {
     services.limesurvey = {
@@ -9,6 +9,8 @@ import ./make-test-python.nix ({ pkgs, ... }: {
         hostName = "example.local";
         adminAddr = "root@example.local";
       };
+      encryptionKeyFile = pkgs.writeText "limesurvey_encryption_key" (lib.strings.replicate 32 "0");
+      encryptionNonceFile = pkgs.writeText "limesurvey_encryption_nonce" (lib.strings.replicate 24 "0");
     };
 
     # limesurvey won't work without a dot in the hostname
